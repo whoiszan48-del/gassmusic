@@ -14,6 +14,7 @@ jobs:
         with: { distribution: temurin, java-version: 21 }
       - name: Cari folder proyek otomatis
         run: |
+          for z in *.zip; do [ -f "$z" ] && unzip -oq "$z" -d _src && echo "Zip diekstrak: $z"; done
           CFG=$(find . -name capacitor.config.json -not -path "*/node_modules/*" | head -1)
           if [ -z "$CFG" ]; then echo "capacitor.config.json tidak ditemukan. Pastikan semua file proyek terupload."; ls -R | head -50; exit 1; fi
           echo "APP_DIR=$(dirname "$CFG")" >> "$GITHUB_ENV"
